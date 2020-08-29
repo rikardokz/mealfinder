@@ -1,4 +1,5 @@
 const search = document.getElementById("search"),
+  button = document.getElementById("search-btn"),
   submit = document.getElementById("submit"),
   random = document.getElementById("random"),
   mealsEl = document.getElementById("meals"),
@@ -17,7 +18,6 @@ function searchMeal(e) {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         resultHeading.innerHTML = `<h2>Search results for "${term}":</h2>`;
         if (data.meals === null) {
           resultHeading.innerHTML = `<p>There are no search results. Try again.</p>`;
@@ -78,7 +78,10 @@ function addMealToDom(meal) {
         <h2>Ingredients</h2>
         <ul>
             ${ingredients
-              .map((ingredient) => `<li>${ingredient}</li>`)
+              .map(
+                (ingredient) =>
+                  `<button class="ing-li" value="${ingredient}">${ingredient}</button>`
+              )
               .join("")}
         </ul>
 
@@ -102,6 +105,14 @@ function randomMeal() {
 // Event listeners
 submit.addEventListener("submit", searchMeal);
 random.addEventListener("click", randomMeal);
+
+// added functionality
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("ing-li")) {
+    const splitedVal = e.target.value.split("-");
+    search.value = splitedVal[0];
+  }
+});
 
 mealsEl.addEventListener("click", (e) => {
   const mealInfo = e.path.find((item) => {

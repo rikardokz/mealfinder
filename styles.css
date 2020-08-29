@@ -122,7 +122,7 @@ input[type="text"] {
   list-style-type: none;
 }
 
-.single-meal ul li {
+.single-meal ul button {
   border: 1px solid #ededed;
   border-radius: 5px;
   background: #fff;
@@ -162,4 +162,8 @@ input[type="text"] {
     height: 300px;
     width: 300px;
   }
+}
+
+.ing-li {
+  cursor: pointer;
 }
